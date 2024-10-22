@@ -1,3 +1,7 @@
+from django.db.models import F
+from django.db.models import Q
+from django.db.models import Sum, Avg, Max, Min, Count
+from BackEnd.Apps.Orm.models import *
 
 # Insertar un registro directamente en la base de datos
 tipo1 = TipoSangre.objects.create(tipo="A+", descripcion="Tipo A positivo")

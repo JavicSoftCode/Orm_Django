@@ -71,24 +71,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Orm_Django.wsgi.application'
 
 # >>> BD SQLITE3 <<< =============================================================================
-# DATABASES = {
-#   'default': {
-#     'ENGINE': 'django.db.backends.sqlite3',
-#     'NAME': BASE_DIR / 'db.sqlite3',
-#   }
-# }
-
-# CONECTOR DE LA BD <<< pip install psycopg2-binary >>> POSTGRESQL ====================================
 DATABASES = {
-  'default': {
-    'ENGINE': os.getenv('DB_ENGINE', ''),
-    'NAME': os.getenv('DB_NAME_DATABASE', ''),
-    'USER': os.getenv('DB_USERNAME_DATABASE', ''),
-    'PASSWORD': os.getenv('DB_PASSWORD_DATABASE', ''),
-    'HOST': os.getenv('DB_HOST_DATABASE', ''),
-    'PORT': os.getenv('DB_PORT_DATABASE', '5432'),
-  }
+   'default': {
+     'ENGINE': 'django.db.backends.sqlite3',
+     'NAME': BASE_DIR / 'db_orm.sqlite3',
+   }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
