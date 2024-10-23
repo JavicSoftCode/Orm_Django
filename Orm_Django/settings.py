@@ -1,10 +1,6 @@
 import os
 from pathlib import Path
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -71,22 +67,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Orm_Django.wsgi.application'
 
 # >>> BD SQLITE3 <<< =============================================================================
-# DATABASES = {
-#   'default': {
-#     'ENGINE': 'django.db.backends.sqlite3',
-#     'NAME': BASE_DIR / 'db.sqlite3',
-#   }
-# }
-
-# CONECTOR DE LA BD <<< pip install psycopg2-binary >>> POSTGRESQL ====================================
 DATABASES = {
   'default': {
-    'ENGINE': os.getenv('DB_ENGINE', ''),
-    'NAME': os.getenv('DB_NAME_DATABASE', ''),
-    'USER': os.getenv('DB_USERNAME_DATABASE', ''),
-    'PASSWORD': os.getenv('DB_PASSWORD_DATABASE', ''),
-    'HOST': os.getenv('DB_HOST_DATABASE', ''),
-    'PORT': os.getenv('DB_PORT_DATABASE', '5432'),
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': BASE_DIR / 'db_orm.sqlite3',
   }
 }
 
