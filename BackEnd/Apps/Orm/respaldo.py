@@ -163,7 +163,7 @@ pacientes = Paciente.objects.exclude(tipo_sangre__tipo="AB+").values('apellidos'
 # Obtener pacientes nacidos después de 1980 excluyendo tipo de sangre "O+"
 pacientes = Paciente.objects.filter(fecha_nacimiento__year__gt=1980).exclude(tipo_sangre__tipo="O+").values('apellidos',
                                                                                                             'tipo_sangre__descripcion')
-
+             # AQUIIIII
 # Obtener cargo con id 1 (ej. Enfermera)
 cargo_1 = Cargo.objects.get(id=1)
 
