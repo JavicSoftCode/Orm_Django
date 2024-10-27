@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 
   # My Apps
   'BackEnd.Apps.Orm.apps.OrmConfig',
+  'BackEnd.Apps.Orm_Pdf.apps.OrmPdfConfig',
 
   # Apps de terceros
   'django_extensions',

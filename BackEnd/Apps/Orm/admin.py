@@ -1,3 +1,21 @@
 from django.contrib import admin
-
-# Register your models here.
+from BackEnd.Apps.Orm.models import *
+admin.site.register(Doctor)
+admin.site.register(Paciente)
+admin.site.register(Cargo)
+admin.site.register(TipoSangre)
+admin.site.register(Especialidad)
+admin.site.register(Empleado)
+admin.site.register(TipoMedicamento)
+admin.site.register(MarcaMedicamento)
+admin.site.register(Medicamento)
+admin.site.register(Diagnostico)
+admin.site.register(CategoriaExamen)
+admin.site.register(TipoCategoria)
+admin.site.register(HorarioAtencion)
+admin.site.register(Atencion)
+admin.site.register(CitaMedica)
+admin.site.register(DetalleAtencion)
+admin.site.register(ExamenSolicitado)
+admin.site.register(ServiciosAdicionales)
+admin.site.register(CostosAtencion)
