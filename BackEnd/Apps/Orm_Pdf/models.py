@@ -19,7 +19,11 @@ class Editorial(models.Model):
     db_table = 'libreria_editorial'
 
 
-# Modelo: Libro
+# Modelo: Autor
+class Autor(models.Model):
+    nombre = models.CharField(max_length=70)
+
+
 class Libro(models.Model):
   isbn = models.CharField(max_length=13, primary_key=True)
   titulo = models.CharField(max_length=70, blank=True)
@@ -30,14 +34,13 @@ class Libro(models.Model):
   estatus = models.CharField(max_length=1)
   categoria = models.CharField(max_length=50)
   editorial = models.ForeignKey(Editorial, on_delete=models.PROTECT, null=True, related_name='libros')
-  edicion_anterior = models.ForeignKey('self', null=True, default=None, on_delete=models.PROTECT,
-                                       related_name='siguientes_ediciones')
+
+  objects = LibroManager()
 
 
-# Modelo: Autor
-class Autor(models.Model):
-  nombre = models.CharField(max_length=70)
-  libros = models.ManyToManyField(Libro, through='AutorCapitulo', related_name='autores')
+class LibroAutor(models.Model):
+  libro = models.ForeignKey(Libro, on_delete=models.CASCADE, related_name='libro_autores')
+  autor = models.ForeignKey(Autor, on_delete=models.CASCADE, related_name='autor_libros')
 
 
 # Modelo: AutorCapitulo (relación Many-to-Many extendida con datos adicionales)

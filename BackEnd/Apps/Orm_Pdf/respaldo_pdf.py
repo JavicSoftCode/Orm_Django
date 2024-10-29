@@ -38,7 +38,7 @@ Libro.objects.all().first()
 Libro.objects.all().last()
 
 # Ejemplo de obtener los primeros 5 libros
-let = Libro.objects.all()[:5]
+let = Libro.objects.all()[:3]
 
 # Ejempo de obtener los libros cuyo isbn comience con un 16
 Libro.objects.filter(isbn__startswith="16")
@@ -50,7 +50,7 @@ Libro.objects.filter(paginas__gt=200)
 # ('1933988592','1884777600')
 let_libro = Libro.objects.filter(paginas__gt=200).exclude(isbn__in=('1933988592', '1884777600'))
 
-# Ejemplo de libros que tienes 200 o mas paginas
+# Ejemplo de libros que tiene 200 o mas paginas
 Libro.objects.filter(paginas__gte=200)
 
 # Ejemplo de una consulta de los libros que tienen 200 o mas paginas, pero solo muestra las columnas isbn y paginas
@@ -89,11 +89,11 @@ let3 = Libro.objects.values('isbn', 'paginas').order_by('-paginas')[3]
 let4 = Libro.objects.values('isbn', 'paginas').order_by('-paginas')[3:5]
 
 # Usando la función podemos seleccionar por ejemplo la pagina 3
-Libro.objects.LibroPorPaginas(3)
+Libro.objects.LibroPorPaginas(3)  # pendiente
 
 # Usando la función vamos a volver a seleccionar la pagina 3 , y veremos como obtenemos las mismas consultas sql que
 # con la función que hicimos a mano, solo que en esta ocasión los cálculos los realizo Django por nosotros.
-Libro.objects.LibroPorPaginasDjango(3)
+Libro.objects.LibroPorPaginasDjango(3) # pendiente
 
 let5 = Libro.objects.filter(paginas__gte=200).explain
 
@@ -109,7 +109,7 @@ Libro.objects.aggregate(Max('paginas'))
 # los libros que no se especifico su numero de paginas para así solo considerar los libros con paginas.
 Libro.objects.filter(paginas__gt=0).aggregate(Avg('paginas'))
 
-# Sumar el total de paginas de todos los libros que tenemos de Python
+# Sumar el total de paginas de todos los libros que tenemos
 Libro.objects.filter(categoria__icontains='python').aggregate(Sum('paginas'))
 
 #  Agrupar los libros que son de Python por categoría y contar cuantos libros de cada categoría hay.
@@ -280,9 +280,11 @@ for autor in autores:
 
 # Para realizar esto hacemos uso del nombre que le pusimos a nuestra relación en related_name='libros_autores', en este
  # ejemplo consultamos algunos Libros y mostramos su Editorial y el Autor o Autores que los escribieron}
-libros = Libro.objects.filter(isbn__in=('1617290475', '1935182048')).select_related('editorial').prefetch_related('libros_autores')
+libros = Libro.objects.filter(
+  isbn__in=('1234567898745', '1234567898747')
+).select_related('editorial').prefetch_related('libro_autores__autor')
 
 for p in libros:
-    print(f'{p.isbn} - {p.titulo} Editorial: {p.editorial.nombre} Escrito por:')
-    for q in p.libros_autores.all():
-        print(f'{q.nombre}')
+  autores_nombres = [q.autor.nombre for q in p.libro_autores.all()]
+  autores_str = ', '.join(autores_nombres)
+  print(f'{p.isbn} - {p.titulo} - Editorial: {p.editorial.nombre} Escrito por: {autores_str}')
